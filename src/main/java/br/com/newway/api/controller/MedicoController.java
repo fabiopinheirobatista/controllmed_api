@@ -19,13 +19,6 @@ public class MedicoController {
     @Autowired
     private MedicoRepository repository;
 
-    @PostMapping
-    @Transactional
-    public void cadastrar(@RequestBody @Valid DadosCadastroMedico dados){
-        repository.save(new Medico(dados));
-        System.out.println(dados);
-    }
-
     @GetMapping
     public Page<DadosListagemMedico> listar(@PageableDefault(size = 2, page = 0, sort = {"nome"}) Pageable paginacao){
         return repository.findAll(paginacao).map(DadosListagemMedico::new);
@@ -33,6 +26,13 @@ public class MedicoController {
     /*public List<DadosListagemMedico> listar(){
         return repository.findAll().stream().map(DadosListagemMedico::new).toList();
     }*/
+
+    @PostMapping
+    @Transactional
+    public void cadastrar(@RequestBody @Valid DadosCadastroMedico dados){
+        repository.save(new Medico(dados));
+        System.out.println(dados);
+    }
 
     @PutMapping
     @Transactional
