@@ -24,11 +24,12 @@ public class Medico {
     @Enumerated
     private Especialidade especialidade;
     @Embedded
-    //private DadosEndereco endereco;
     private Endereco endereco;
 
-    public Medico(DadosCadastroMedico dados) {
+    private Boolean ativo;
 
+    public Medico(DadosCadastroMedico dados) {
+        this.ativo = true;
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
@@ -43,10 +44,14 @@ public class Medico {
             this.nome = dados.nome();
         }
         if(dados.telefone() != null){
-            this.nome = dados.telefone();
+            this.telefone = dados.telefone();
         }
         if(dados.endereco() != null){
             this.endereco.atualizarInformacoes(dados.endereco());
         }
+    }
+
+    public void desativarMedico() {
+        this.ativo = false;
     }
 }
